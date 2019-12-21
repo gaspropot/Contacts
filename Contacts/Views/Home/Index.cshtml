@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Contacts.Models.Contact>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<h2>Contacts</h2>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">Add Contact</button>
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            Phone Numbers
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @{
+                    if (item.PhoneNumbers.Count != 0)
+                    {
+                        foreach (var number in item.PhoneNumbers)
+                        {
+                            @number.Number <br />
+                        }
+                    }
+                    else
+                    {
+                        @: -
+                    }
+                }
+            </td>
+            <td>
+                <a href="#" onclick="return getbyID(@item.Id)">Edit</a> |
+                <a href="#" onclick="DeleteContact(@item.Id)">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+
